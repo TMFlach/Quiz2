@@ -74,6 +74,16 @@ bool gameOver(char player) {
                 return true;
             }
     }
+    //check diagonals
+    if((board[0][0] == player && // checks for \ diagonal.
+        board[1][1] == player &&
+        board[2][2] == player) ||
+        (board[0][2] == player && // checks for / diagonal.
+        board[1][1] == player &&
+        board[2][0] == player)) {
+            printf("Game Over. Player %c Wins!", player);
+            return true;
+        }
     //all checks failed
     return false;
 }
