@@ -95,8 +95,17 @@ bool gameOver(char player) {
             printf("Game Over. Player %c Wins!", player);
             return true;
         }
-    //all checks failed
-    return false;
+    //Check for draw.
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            if(board[i][j] == ' ') { //if not a draw, continue game.
+                return false;
+            }
+        }
+    }
+    //No winner and no moves left.
+    printf("Game Over. Draw!");
+    return true;
 }
 
 //create function to display the board to player(s).
