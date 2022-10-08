@@ -4,9 +4,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-char board[3][3] = {' ', ' ', ' ',
-                    ' ', ' ', ' ',
-                    ' ', ' ', ' '};
+char board[3][3];
 bool makeMove(int row, int col, char player);
 void playerMove(char player);
 void computerMove(char marker);
@@ -17,17 +15,27 @@ void singleGame();
 
 int main() {
     //prompt user for game they wish to play.
-    printf("Which game do you wish to play? 1. Single player 2. Two player.\n");
-    //read information from console
+    char play = 'Y';
+    while (play == 'y' || play == 'Y') {
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j < 3; j++) {
+                board[i][j] = ' ';
+            }
+        }
+        printf("Which game do you wish to play? 1. Single player 2. Two player.\n");
+        //read information from console
 
-    int select;
-    scanf("%i", &select);
-    //start a game vs players or vs computer based on input.
-    printf("You entered %d", select);
-    if(select == 1) {
-        singleGame();
-    } else if(select == 2) {
-        PVPGame();
+        int select;
+        scanf("%i", &select);
+        //start a game vs players or vs computer based on input.
+        printf("You entered %d\n", select);
+        if(select == 1) {
+            singleGame();
+        } else if(select == 2) {
+            PVPGame();
+        }
+        printf("Do you wish to play again? (y/n)\n");
+        scanf(" %c", &play);
     }
     //display end game message. Win, lose, or tie.
     return 0;
@@ -101,7 +109,7 @@ bool gameOver(char player) {
         if(board[i][0] == player && 
             board[i][1] == player &&
             board[i][2] == player) {
-                printf("Game Over. Player %c Wins!", player);
+                printf("Game Over. Player %c Wins!\n", player);
                 return true;
             }
     }
@@ -110,7 +118,7 @@ bool gameOver(char player) {
         if(board[0][j] == player && 
             board[1][j] == player &&
             board[2][j] == player) {
-                printf("Game Over. Player %c Wins!", player);
+                printf("Game Over. Player %c Wins!\n", player);
                 return true;
             }
     }
@@ -121,7 +129,7 @@ bool gameOver(char player) {
         (board[0][2] == player && // checks for / diagonal.
         board[1][1] == player &&
         board[2][0] == player)) {
-            printf("Game Over. Player %c Wins!", player);
+            printf("Game Over. Player %c Wins!\n", player);
             return true;
         }
     //Check for draw.
@@ -133,7 +141,7 @@ bool gameOver(char player) {
         }
     }
     //No winner and no moves left.
-    printf("Game Over. Draw!");
+    printf("Game Over. Draw!\n");
     return true;
 }
 
