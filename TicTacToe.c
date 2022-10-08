@@ -1,15 +1,19 @@
 //Tic Tac Toe game between 2 players or player vs computer.
 #include <stdio.h>
 #include <stdbool.h>
+#include <time.h>
+#include <stdlib.h>
 
 char board[3][3] = {' ', ' ', ' ',
                     ' ', ' ', ' ',
                     ' ', ' ', ' '};
 bool makeMove(int row, int col, char player);
 void playerMove(char player);
+void computerMove(char marker);
 void displayBoard();
 bool gameOver(char player);
 void PVPGame();
+void singleGame();
 
 int main() {
     //prompt user for game they wish to play.
@@ -21,7 +25,7 @@ int main() {
     //start a game vs players or vs computer based on input.
     printf("You entered %d", select);
     if(select == 1) {
-
+        singleGame();
     } else if(select == 2) {
         PVPGame();
     }
@@ -36,6 +40,14 @@ void playerMove(char player) {
         printf("Make your move (0 - 2) (0 - 2): \n");
         scanf("%i %i", &nextMove[0], & nextMove[1]);
     } while (!makeMove(nextMove[0], nextMove[1], player));
+}
+
+void computerMove(char marker) {
+    int row, col;
+    do {
+        row = rand() % 3;
+        col = rand() % 3;
+    } while(!makeMove(row, col, 'O'));
 }
 
 //create function for reading player input format: #row #column
@@ -64,6 +76,23 @@ void PVPGame() {
     }
 }
 //create function to run human vs random computer game.
+void singleGame() {
+    time_t t;
+    srand((unsigned) time(&t));
+    displayBoard();
+    while(true) {
+        playerMove('X');
+        displayBoard();
+        if(gameOver('X')) {
+            break;
+        }
+        computerMove('O');
+        displayBoard();
+        if(gameOver('O')) {
+            break;
+        }
+    }
+}
 
 //create function to check end game condition.
 bool gameOver(char player) {
