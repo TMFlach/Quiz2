@@ -8,6 +8,9 @@ char board[3][3] = {' ', ' ', ' ',
 bool makeMove(int row, int col, char player);
 void playerMove(char player);
 void displayBoard();
+bool gameOver(char player);
+
+
 int main() {
     //prompt user for game they wish to play.
     printf("Which game do you wish to play? 1. Single player 2. Two player.\n");
@@ -16,9 +19,12 @@ int main() {
     //int select;
     //scanf("%i", &select);
     //printf("You entered %d", select);
-    
-    playerMove('X');
     displayBoard();
+    for(int i = 0; i < 3; i++) {
+        playerMove('X');
+        displayBoard();
+    }
+    gameOver('X');
     
     //start a game vs players or vs computer based on input.
 
@@ -49,7 +55,28 @@ bool makeMove(int row, int col, char player) {
 //create function to run human vs random computer game.
 
 //create function to check end game condition.
-
+bool gameOver(char player) {
+    //check rows
+    for(int i = 0; i < 3; i++) {
+        if(board[i][0] == player && 
+            board[i][1] == player &&
+            board[i][2] == player) {
+                printf("Game Over. Player %c Wins!", player);
+                return true;
+            }
+    }
+    //check columns
+    for(int j = 0; j < 3; j++) {
+        if(board[0][j] == player && 
+            board[1][j] == player &&
+            board[2][j] == player) {
+                printf("Game Over. Player %c Wins!", player);
+                return true;
+            }
+    }
+    //all checks failed
+    return false;
+}
 //create function to display the board to player(s).
 void displayBoard() {
     printf("-----------\n");
