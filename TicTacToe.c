@@ -9,25 +9,22 @@ bool makeMove(int row, int col, char player);
 void playerMove(char player);
 void displayBoard();
 bool gameOver(char player);
-
+void PVPGame();
 
 int main() {
     //prompt user for game they wish to play.
     printf("Which game do you wish to play? 1. Single player 2. Two player.\n");
     //read information from console
 
-    //int select;
-    //scanf("%i", &select);
-    //printf("You entered %d", select);
-    displayBoard();
-    for(int i = 0; i < 3; i++) {
-        playerMove('X');
-        displayBoard();
-    }
-    gameOver('X');
-    
+    int select;
+    scanf("%i", &select);
     //start a game vs players or vs computer based on input.
+    printf("You entered %d", select);
+    if(select == 1) {
 
+    } else if(select == 2) {
+        PVPGame();
+    }
     //display end game message. Win, lose, or tie.
     return 0;
 }
@@ -51,7 +48,21 @@ bool makeMove(int row, int col, char player) {
     }
 }
 //create function to run 2 player game.
-
+void PVPGame() {
+    displayBoard();
+    while(true) {
+        playerMove('X');
+        displayBoard();
+        if(gameOver('X')) {
+            break;
+        }
+        playerMove('O');
+        displayBoard();
+        if(gameOver('O')) {
+            break;
+        }
+    }
+}
 //create function to run human vs random computer game.
 
 //create function to check end game condition.
@@ -87,6 +98,7 @@ bool gameOver(char player) {
     //all checks failed
     return false;
 }
+
 //create function to display the board to player(s).
 void displayBoard() {
     printf("-----------\n");
